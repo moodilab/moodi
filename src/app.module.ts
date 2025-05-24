@@ -12,12 +12,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports: [
         ConfigModule.forRoot({ isGlobal: true }),
-
         TypeOrmModule.forRootAsync({
           useFactory: (config: ConfigService) => ({
-            const url = config.get<string>('DATABASE_URL');
-            console.log('🔌 DATABASE_URL=', url);
-        
+            console.log('🔌 DATABASE_URL=', config.get<string>('DATABASE_URL'););
             type: 'postgres',
             url: config.get<string>('DATABASE_URL'),
             ssl: { rejectUnauthorized: false },
