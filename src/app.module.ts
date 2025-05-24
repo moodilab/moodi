@@ -15,6 +15,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
         TypeOrmModule.forRootAsync({
           useFactory: (config: ConfigService) => ({
+            const url = config.get<string>('DATABASE_URL');
+            console.log('🔌 DATABASE_URL=', url);
+        
             type: 'postgres',
             url: config.get<string>('DATABASE_URL'),
             ssl: { rejectUnauthorized: false },
