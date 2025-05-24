@@ -17,6 +17,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
           useFactory: (config: ConfigService) => ({
             type: 'postgres',
             url: config.get<string>('DATABASE_URL'),
+            ssl: { rejectUnauthorized: false },
             entities: [__dirname + '/**/*.entity{.ts,.js}'],
             synchronize: true,  // 개발 중에만 true. 배포 전에는 false 권장
           }),
