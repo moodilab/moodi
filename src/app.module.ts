@@ -1,19 +1,18 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { MoodModule } from './mood/mood.module';
 import { ReportModule } from './report/report.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
 
 @Module({
   imports: [
         ConfigModule.forRoot({ isGlobal: true }),
-        AuthModule,
-        UserModule,
-        MoodModule,
-        ReportModule
+
         TypeOrmModule.forRootAsync({
           useFactory: (config: ConfigService) => ({
             type: 'postgres',
@@ -23,7 +22,11 @@ import { ReportModule } from './report/report.module';
           }),
           inject: [ConfigService],
         }),
-        
+
+        AuthModule,
+        UserModule,
+        MoodModule,
+        ReportModule,
     ],
   controllers: [AppController],
   providers: [AppService],
