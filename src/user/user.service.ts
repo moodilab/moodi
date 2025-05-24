@@ -12,5 +12,5 @@ export class UserService {
     
       findAll(): Promise<User[]> {
         return this.userRepo.find();
-      }
+  }
 }
