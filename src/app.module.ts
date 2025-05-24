@@ -12,15 +12,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports: [
         ConfigModule.forRoot({ isGlobal: true }),
+
         TypeOrmModule.forRootAsync({
           useFactory: (config: ConfigService) => ({
-            console.log('🔌 DATABASE_URL=', config.get<string>('DATABASE_URL'););
             type: 'postgres',
             url: config.get<string>('DATABASE_URL'),
             ssl: { rejectUnauthorized: false },
             entities: [__dirname + '/**/*.entity{.ts,.js}'],
             synchronize: true,  // 개발 중에만 true. 배포 전에는 false 권장
-            envFilePath: '.env',   // 또는 ['./.env']
+            envFilePath: './.env',   // 또는 ['./.env']
+
           }),
           inject: [ConfigService],
         }),
