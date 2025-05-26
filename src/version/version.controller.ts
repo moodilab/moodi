@@ -8,11 +8,7 @@ export class VersionController {
 
   @Get('version')
   getVersion() {
-    const latest = this.configService.get<string>('LATEST_VERSION');
     const minimum = this.configService.get<string>('MINIMUM_VERSION');
-    const force = this.configService.get<string>('FORCE_UPDATE') === 'true';
-    const url = this.configService.get<string>('UPDATE_URL');
-
     return {
       latestVersion: latest,
       minimumVersion: minimum,
