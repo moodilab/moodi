@@ -9,11 +9,9 @@ export class VersionController {
   @Get('version')
   getVersion() {
     const minimum = this.configService.get<string>('MINIMUM_VERSION');
+
     return {
-      latestVersion: latest,
-      minimumVersion: minimum,
-      forceUpdate: force,
-      updateUrl: url,
+      minimumVersion: minimum
     };
   }
 }
