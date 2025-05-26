@@ -11,7 +11,7 @@ export class VersionController {
     const minimum = this.configService.get<string>('MINIMUM_VERSION');
 
     return {
-      minimumVersion: minimum
+      minimumVersion: minimum,
     };
   }
 }
