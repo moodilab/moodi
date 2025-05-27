@@ -28,6 +28,10 @@ export class ProfileService {
     if (!user) {
       throw new NotFoundException('User not found');
     }
+    // 프로필이 미완성(필수 필드 missing) 상태라면 404로 처리
+  if (!user.mbti || !user.gender || !user.ageGroup) {
+    throw new NotFoundException('Profile not completed');
+  }
     const { mbti, gender, ageGroup } = user;
     return { mbti, gender, ageGroup };
   }

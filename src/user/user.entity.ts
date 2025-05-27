@@ -21,14 +21,14 @@ export class User {
   @Column()
   nickname: string;
 
-  @Column()
-  mbti: string;
+  @Column({ nullable: true })
+  mbti?: string;
 
-  @Column()
-  gender: string;
+  @Column({ nullable: true })
+  gender?: string;
 
-  @Column()
-  ageGroup: string;
+  @Column({ nullable: true })
+  ageGroup?: string;
 
   @CreateDateColumn()
   createdAt: Date;
