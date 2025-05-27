@@ -8,6 +8,7 @@ import { MoodModule } from './mood/mood.module';
 import { ReportModule } from './report/report.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { VersionModule } from './version/version.module';
+import { ProfileModule } from './profile/profile.module';
 
 
 @Module({
@@ -32,6 +33,7 @@ import { VersionModule } from './version/version.module';
         MoodModule,
         ReportModule,
         VersionModule,
+        ProfileModule,
     ],
   controllers: [AppController],
   providers: [AppService],

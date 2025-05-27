@@ -7,19 +7,28 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('users')  // 테이블 이름을 명시할 수도 있고, 기본은 클래스명(User) 소문자 복수형
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
-  email: string;
+  @Column({ nullable: true })
+  kakaoId?: string;
 
-  @Column()
-  passwordHash: string;
+  @Column({ nullable: true })
+  appleId?: string;
 
   @Column()
   nickname: string;
+
+  @Column()
+  mbti: string;
+
+  @Column()
+  gender: string;
+
+  @Column()
+  ageGroup: string;
 
   @CreateDateColumn()
   createdAt: Date;
