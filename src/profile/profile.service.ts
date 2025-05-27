@@ -3,7 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../user/user.entity';
-import { CreateProfileDto } from './dto/create-profile.ts;
+import { CreateProfileDto } from './dto/create-profile;
 
 @Injectable()
 export class ProfileService {
