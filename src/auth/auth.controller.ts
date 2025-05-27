@@ -13,9 +13,14 @@ export class AuthController {
   }
 
   // POST /auth/kakao
+  // src/auth/auth.controller.ts
   @Post('kakao')
-  loginKakao(@Body() dto: KakaoAuthDto) {
-    // dto.accessToken 을 AuthService 로 전달
-    return this.authService.loginWithKakao(dto.accessToken);
+  async loginKakao(@Body() dto: KakaoAuthDto) {
+    try {
+      return await this.authService.loginWithKakao(dto.accessToken);
+    } catch (err) {
+      console.error('loginWithKakao error:', err);
+      throw err;
+    }
   }
 }
