@@ -13,7 +13,7 @@ import {
   } from '@nestjs/common';
   import { JwtAuthGuard } from '../auth/jwt-auth.guard';
   import { ProfileService } from './profile.service';
-  import { CreateProfileDto } from './dto/create-profile.dto';
+  import { CreateProfileDto } from './DTO/create-profile.dto';
   
   @Controller('profile')
   @UseGuards(JwtAuthGuard) // JWT 인증 적용
