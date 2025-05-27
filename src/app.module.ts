@@ -9,6 +9,9 @@ import { ReportModule } from './report/report.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { VersionModule } from './version/version.module';
 import { ProfileModule } from './profile/profile.module';
+import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from './jwt.strategy';
+
 
 
 @Module({
