@@ -16,15 +16,15 @@ import { ProfileModule } from './profile/profile.module';
         ConfigModule.forRoot({ isGlobal: true }),
 
         TypeOrmModule.forRootAsync({
-          useFactory: (config: ConfigService) => ({
-            type: 'postgres',
-            url: config.get<string>('DATABASE_URL'),
-            ssl: { rejectUnauthorized: false },
-            entities: [__dirname + '/**/*.entity{.ts,.js}'],
-            synchronize: true,  // 개발 중에만 true. 배포 전에는 false 권장
-            envFilePath: '.env',   // 또는 ['./.env']
-
-          }),
+            useFactory: (cs: ConfigService) => ({
+    type: 'postgres',
+    url: cs.get<string>('DATABASE_URL'),
+    ssl: { rejectUnauthorized: false },
+    entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    synchronize: true,
+    // ← 아래 줄은 제거!
+    // envFilePath: '.env',
+  }),
           inject: [ConfigService],
         }),
 

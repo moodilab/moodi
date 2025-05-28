@@ -20,7 +20,7 @@ export class User {
   @Column({ nullable: true })
   appleId?: string;
 
-  @Column()
+@Column({ unique: true }) 
   nickname: string;
 
   @Column({ nullable: true })

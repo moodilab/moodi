@@ -4,6 +4,7 @@ import { HttpService } from '@nestjs/axios';
 import { JwtService } from '@nestjs/jwt';
 import { lastValueFrom } from 'rxjs';
 import { UserService } from '../user/user.service';
+import { faker } from '@faker-js/faker';
 
 @Injectable()
 export class AuthService {
@@ -16,11 +17,16 @@ export class AuthService {
   async loginWithKakao(accessToken: string) {
     // 1) kakaoId 결정
     let kakaoId: string;
-    let nickname = 'DevUser';
+    let nickname: string;
 
     if (process.env.NODE_ENV === 'development') {
       // 개발 모드: 토큰 자체를 고유 ID로 사용
       kakaoId = accessToken;
+           do {
+        nickname = faker.internet.userName();
+        // DB에 같은 nickname이 있는지 조회
+        // findByNickname은 UserService에 구현했다고 가정
+      } while (await this.userService.findByNickname(nickname));
     } else {
       // 운영 모드: 실제 카카오 API 호출
       const response$ = this.httpService.get(

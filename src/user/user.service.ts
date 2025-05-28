@@ -17,6 +17,11 @@ export class UserService {
   }
   // ...
 
+  async findByNickname(nickname: string): Promise<boolean> {
+  const user = await this.userRepo.findOneBy({ nickname });
+  return !!user;
+}
+
   async findOrCreateSocial(dto: {
     provider: string;
     providerId: string;
