@@ -23,6 +23,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   // 리턴되는 객체가 req.user로 주입됩니다.
   async validate(payload: { sub: number }) {
     // 필요하다면 데이터베이스에서 사용자 조회 후 추가 검증
-    return { userId: payload.sub };
+    return { id: payload.sub, userId: payload.sub };
   }
 }
