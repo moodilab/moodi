@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { Repository, Between } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Mood } from './mood.entity';
 import { CreateMoodDto } from './dto/create-mood.dto';
+
 
 @Injectable()
 export class MoodService {
@@ -12,19 +13,28 @@ export class MoodService {
   ) {}
 
   /** 1) 오늘의 감정+일기 저장 */
-  async createMood(
-    userId: number,
-    dto: CreateMoodDto,
-  ): Promise<Mood> {
+    async createMood(
+        userId: number,
+        dto: CreateMoodDto,
+    ): Promise<Mood> {
+        const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+        const mood = this.moodRepo.create({
+        user: { id: userId } as any,
+        date: today,
+        emotion: dto.emotion,
+        text: dto.text,
+        });
+        return this.moodRepo.save(mood);
+    }
+
+    async hasMoodToday(userId: number): Promise<boolean> {
     const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-    const mood = this.moodRepo.create({
-      user: { id: userId } as any,
-      date: today,
-      emotion: dto.emotion,
-      text: dto.text,
+    const exists = await this.moodRepo.findOne({
+        where: { user: { id: userId } as any, date: today },
     });
-    return this.moodRepo.save(mood);
-  }
+    return !!exists;
+}
+
 
   /** 2) 월별 리스트 조회 */
   async getMoodsByMonth(

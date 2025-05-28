@@ -32,6 +32,14 @@ export class MoodController {
     return this.moodService.createMood(req.user.id, dto);
   }
 
+@Get('today')
+  @HttpCode(HttpStatus.OK)
+  async checkToday(@Request() req): Promise<{ exists: boolean }> {
+    const exists = await this.moodService.hasMoodToday(req.user.id);
+    return { exists };
+  }
+
+
   /** 2) GET /moods?month=YYYY-MM */
   @Get()
   async list(
