@@ -5,7 +5,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Mood } from '../mood/mood.entity';  // ← 추가
 
 @Entity('users')
 export class User {
@@ -29,6 +31,9 @@ export class User {
 
   @Column({ nullable: true })
   ageGroup?: string;
+
+  @OneToMany(() => Mood, (mood) => mood.user)
+  moods: Mood[];
 
   @CreateDateColumn()
   createdAt: Date;
