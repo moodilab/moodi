@@ -24,6 +24,9 @@ import { ProfileModule } from './profile/profile.module';
     synchronize: true,
     // ← 아래 줄은 제거!
     // envFilePath: '.env',
+      logging: ['error','warn','info'],
+  logger: 'advanced-console',
+
   }),
           inject: [ConfigService],
         }),
