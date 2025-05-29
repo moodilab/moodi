@@ -2,6 +2,8 @@ import {
   Controller,
   Post,
   Get,
+  Put,
+  Delete,
   Param,
   Query,
   Body,
@@ -10,11 +12,15 @@ import {
   HttpCode,
   HttpStatus,
   ValidationPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { MoodService } from './mood.service';
 import { CreateMoodDto } from './dto/create-mood.dto';
 import { GetMoodsDto } from './dto/get-moods.dto';
+import { UpdateMoodDto } from './dto/update-mood.dto';
+import { Mood } from './mood.entity';
+
 
 @UseGuards(JwtAuthGuard)
 @Controller('moods')
@@ -58,4 +64,18 @@ export class MoodController {
   ) {
     return this.moodService.getMoodById(req.user.id, +id);
   }
+
+  @Put(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateMoodDto: UpdateMoodDto,
+  ): Promise<Mood> {
+    return this.moodService.update(id, updateMoodDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.moodService.remove(id);
+  }
+
 }

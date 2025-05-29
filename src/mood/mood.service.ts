@@ -3,13 +3,14 @@ import { Repository, Between } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Mood } from './mood.entity';
 import { CreateMoodDto } from './dto/create-mood.dto';
-
+import { UpdateMoodDto } from './dto/update-mood.dto';
 
 @Injectable()
 export class MoodService {
   constructor(
     @InjectRepository(Mood)
     private readonly moodRepo: Repository<Mood>,
+
   ) {}
 
   /** 1) 오늘의 감정+일기 저장 */
@@ -35,6 +36,22 @@ export class MoodService {
     return !!exists;
 }
 
+  async update(id: number, updateMoodDto: UpdateMoodDto): Promise<Mood> {
+    const mood = await this.moodRepo.findOneBy({ id });
+    if (!mood) {
+      throw new NotFoundException(`Mood with ID ${id} not found`);
+    }
+
+    Object.assign(mood, updateMoodDto);
+    return this.moodRepo.save(mood);
+  }
+
+    async remove(id: number): Promise<void> {
+    const result = await this.moodRepo.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Mood with ID ${id} not found`);
+    }
+  }
 
   /** 2) 월별 리스트 조회 */
   async getMoodsByMonth(
